@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "config.window.width",
+      "type": "java.lang.String",
+      "description": "Description for config.window.width."
+  }
+] }

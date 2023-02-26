@@ -1,0 +1,10 @@
+config:
+    application:
+        name: "Simple web studio"
+    window:
+        startLocationX: 250
+        startLocationY: 250
+        width: 1920
+        height: 1080
+    images:
+        icon: "classpath:images/favicon.ico"
