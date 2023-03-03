@@ -22,6 +22,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
 	implementation("org.openjfx:javafx-swing:$javafxSwingVersion")
 	implementation("ch.qos.logback:logback-classic:$logbackClassicVersion")
+	implementation("org.projectlombok:lombok:1.18.26")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
