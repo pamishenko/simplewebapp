@@ -1,20 +1,14 @@
 package com.school21.simplewebstudio.views.menu;
 
 import com.school21.simplewebstudio.services.Engine;
-import com.school21.simplewebstudio.services.impl.FileManagerImpl;
 import com.school21.simplewebstudio.views.ParentFrame;
-import com.school21.simplewebstudio.views.mainframe.MainTextPanel;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
@@ -28,12 +22,8 @@ public class MenuBar extends JMenuBar {
 
     Engine engine;
 
-    ArrayList<String> buffer = new ArrayList<>();
-
-    FileManagerImpl fileManager;
-
     @Autowired
-    public MenuBar(MainTextPanel mainTextPanel, ParentFrame parentFrame) {
+    public MenuBar(ParentFrame parentFrame) {
         JMenu fileMenu = new JMenu("File");
         JMenuItem openFileMenuItem = new JMenuItem("Open");
         openFileMenuItem.addActionListener(e -> {
@@ -43,14 +33,14 @@ public class MenuBar extends JMenuBar {
             if (result == JFileChooser.APPROVE_OPTION) {
                 selectedFile = fileChooser.getSelectedFile();
                 try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
-                    mainTextPanel.clean();
+                    parentFrame.buffer.clear();
+                    parentFrame.clean();
                     parentFrame.updateTitle(selectedFile.getName());
                     while (reader.ready()) {
                         String tmp = reader.readLine() + "\n";
-                        buffer.add(tmp);
-                        mainTextPanel.mainTextArea.append(tmp);
+                        parentFrame.buffer.add(tmp);
+                        parentFrame.mainTextPanel.mainTextArea.append(tmp);
                     }
-                    fileManager = new FileManagerImpl();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -72,9 +62,9 @@ public class MenuBar extends JMenuBar {
         saveFileMenuItem.addActionListener(e -> {
                     selectedFile.setWritable(true);
                     try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile))) {
-                        buffer.clear();
-                        buffer.addAll(Arrays.asList(mainTextPanel.mainTextArea.getText().split("\n")));
-                        buffer.forEach(str -> {
+                        parentFrame.buffer.clear();
+                        parentFrame.buffer.addAll(Arrays.asList(parentFrame.mainTextPanel.mainTextArea.getText().split("\n")));
+                        parentFrame.buffer.forEach(str -> {
                             try {
                                 writer.write(str);
                             } catch (IOException ex) {
@@ -113,6 +103,11 @@ public class MenuBar extends JMenuBar {
         JMenu helpMenu = new JMenu("Help");
         JMenuItem aboutHelpMenuItem = new JMenuItem("About");
         helpMenu.add(aboutHelpMenuItem);
+        aboutHelpMenuItem.addActionListener(
+                e -> JOptionPane.showMessageDialog(this, "Simple Web Studio v1.0.0\n" +
+                        "© 2023 School 21.\n" +  "Developed by: \n" + "student ttanja"
+                )
+        );
 
         JMenu previewMenu = new JMenu("Preview");
 

@@ -18,9 +18,9 @@ public class MainMenuPanel extends JPanel {
     public MenuBar menuBar = null;
 
     @Autowired
-    public MainMenuPanel(MainTextPanel mainTextPanel, ParentFrame parentFrame) {
+    public MainMenuPanel(ParentFrame parentFrame) {
         this.parentFrame = parentFrame;
-        menuBar = new MenuBar(mainTextPanel, parentFrame);
+        menuBar = new MenuBar(parentFrame);
         this.add(menuBar);
     }
 }

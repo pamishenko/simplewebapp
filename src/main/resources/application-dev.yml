@@ -7,5 +7,6 @@ config:
         width: 1920
         height: 1080
     images:
-        icon: "classpath:images/favicon.ico"
-    htmlTags: "h1,h2,h3,h4,h5,h6,b,em,ul,ol,a,nav,aside,header,section,div,html,body,script,link,meta,img,audio,iframe,form,input,table,td,tr"
+        icon: "classpath:images/favicon.icns"
+    html:
+        tags: "h1,h2,h3,h4,h5,h6,b,em,ul,ol,a,nav,aside,header,section,div,html,body,script,link,meta,img,audio,iframe,form,input,table,td,tr"
