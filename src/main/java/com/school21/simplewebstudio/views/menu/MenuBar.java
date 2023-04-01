@@ -8,6 +8,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Arrays;
 
@@ -100,6 +103,50 @@ public class MenuBar extends JMenuBar {
         editMenu.add(copyEditMenuItem);
         editMenu.add(pasteEditMenuItem);
 
+        JMenu viewMenu = new JMenu("View");
+        JMenuItem lightTheme = new JMenuItem("Light");
+        JMenuItem darkTheme = new JMenuItem("Dark");
+        viewMenu.add(lightTheme);
+        viewMenu.add(darkTheme);
+        lightTheme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Установка темы Light
+                    parentFrame.mainTextPanel.mainTextArea.setBackground(java.awt.Color.WHITE);
+                    parentFrame.mainTextPanel.mainTextArea.setForeground(java.awt.Color.BLACK);
+                    parentFrame.mainTextPanel.mainTextArea.setCurrentLineHighlightColor(Color.YELLOW);
+                    UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                    UIManager.put("nimbusBase", Color.LIGHT_GRAY);
+                    UIManager.put("nimbusBlueGrey", Color.LIGHT_GRAY);
+                    UIManager.put("control", Color.LIGHT_GRAY);
+                    SwingUtilities.updateComponentTreeUI(parentFrame);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        darkTheme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Установка темы Dark
+                    parentFrame.mainTextPanel.mainTextArea.setBackground(java.awt.Color.BLACK);
+                    parentFrame.mainTextPanel.mainTextArea.setForeground(java.awt.Color.WHITE);
+                    parentFrame.mainTextPanel.mainTextArea.setCurrentLineHighlightColor(Color.DARK_GRAY);
+                    UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                    UIManager.put("nimbusBase", java.awt.Color.darkGray);
+                    UIManager.put("nimbusBlueGrey", java.awt.Color.darkGray);
+                    UIManager.put("control", java.awt.Color.darkGray);
+                    SwingUtilities.updateComponentTreeUI(parentFrame);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
         JMenu helpMenu = new JMenu("Help");
         JMenuItem aboutHelpMenuItem = new JMenuItem("About");
         helpMenu.add(aboutHelpMenuItem);
@@ -113,6 +160,7 @@ public class MenuBar extends JMenuBar {
 
         this.add(fileMenu);
         this.add(editMenu);
+        this.add(viewMenu);
         this.add(helpMenu);
         this.add(previewMenu);
     }
