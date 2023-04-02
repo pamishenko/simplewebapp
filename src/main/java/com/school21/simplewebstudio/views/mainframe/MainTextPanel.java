@@ -75,7 +75,7 @@ public class MainTextPanel extends JPanel {
                     // Добавляем подсказки в меню
 
                     Rectangle rectangle = mainTextArea.modelToView(e.getOffset()); // Получаем позицию курсора
-                    Point point = new Point(rectangle.x + rectangle.width, rectangle.y + rectangle.height); // Создаем точку для отображения меню
+                    Point point = new Point(rectangle.x, rectangle.y); // Создаем точку для отображения меню
                     SwingUtilities.convertPointToScreen(point, mainTextArea); // Преобразуем координаты точки в экранные координаты
                     popupMenu.show(mainTextArea, point.x, point.y); // Отображаем меню
 
@@ -95,8 +95,7 @@ public class MainTextPanel extends JPanel {
         AutoCompletion ac = new AutoCompletion(provider);
         ac.install(mainTextArea);
         mainTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_HTML);
-        mainTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_CSS);
-        mainTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT);
+//        mainTextArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_CSS);
         mainTextArea.setCodeFoldingEnabled(true);
         mainTextArea.setAntiAliasingEnabled(true);
         mainTextArea.setAutoIndentEnabled(true);

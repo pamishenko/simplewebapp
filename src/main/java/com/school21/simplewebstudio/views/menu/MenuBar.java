@@ -157,6 +157,23 @@ public class MenuBar extends JMenuBar {
         );
 
         JMenu previewMenu = new JMenu("Preview");
+        JMenuItem previewMenuItem = new JMenuItem("Preview");
+        previewMenuItem.addActionListener(e -> {
+            try {
+                JEditorPane previewPane = new JEditorPane();
+                previewPane.setEditable(false);
+                previewPane.setContentType("text/html");
+                previewPane.setText(parentFrame.mainTextPanel.mainTextArea.getText());
+
+                JFrame previewFrame = new JFrame("Preview");
+                previewFrame.add(new JScrollPane(previewPane));
+                previewFrame.pack();
+                previewFrame.setVisible(true);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        previewMenu.add(previewMenuItem);
 
         this.add(fileMenu);
         this.add(editMenu);
